@@ -13,6 +13,14 @@ let url1 = 'http://www.canonchain.com/resource/file/canonchain/latest/builds/can
 let url2 = 'http://www.canonchain.com/resource/file/canonchain/latest/builds/canonchain-0.8.1.tar.gz';//MAC
 let url3= 'https://canonchain-public.oss-cn-hangzhou.aliyuncs.com/node/mac/canonchain-lastest.tar.gz';
 
+var option={
+    hostname:'canonchain-public.oss-cn-hangzhou.aliyuncs.com',
+    path:'/node/mac/canonchain-lastest.tar.gz',
+    headers:{
+      'Connection':'keep-alive'
+    }
+};
+
 let filePath = __dirname;
 const zipFilePath = path.join(filePath, 'canonchain.zip')
 
@@ -36,7 +44,8 @@ function down() {
         }
     }, 3000)
 
-    req = http.get(url1, (res) => {
+    // req = https.get(option, (res) => {
+    req = https.get(url3, (res) => {
         let canonData = "";
         globalRes = res;
         res.setEncoding("binary");//binary
@@ -70,8 +79,7 @@ function down() {
             }
         })
     });
-
-    //Error
+     //Error
     req.on('error', (e) => {
         console.error('problem with request: ' + e.message);
     });
